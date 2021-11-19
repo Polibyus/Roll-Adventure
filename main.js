@@ -200,8 +200,8 @@ function enableButtons () {
 // Ataque con animacion
 
 function ataqueAnim () {
-    $("#imgPJ > img").animate({left: "500px"}, "slow");
-    $("#imgPJ > img").animate({left: "0px"}, "slow");
+    $("#imgPJ > img").animate({left: "500px"}, "fast");
+    $("#imgPJ > img").animate({left: "0px"}, "fast");
 }
 
 // Falla de ataque
@@ -253,7 +253,6 @@ $(document).ready(() => {
                         y = selector[i].value;
                 }
                 let x = document.getElementById("nickPJ").value;
-                console.log(y);
                 sessionStorage.setItem("nickPJ", x);
                 sessionStorage.setItem("profesionPJ", y);
             });
@@ -291,13 +290,13 @@ const hordaMobs = [mob1, mob2, mob3, mob4, mob5, mob6];
 // Ordenar horda de menor ataque a mayor, (añade dificultad)
 
 function ordenarHorda(a, b) {
-        const vidaA = a.danioMob;
-        const vidaB = b.danioMob;
+        const danioA = a.danioMob;
+        const danioB = b.danioMob;
       
         let comparison = 0;
-        if (vidaB > vidaA) {
+        if (danioB > danioA) {
           comparison = -1;
-        } else if (vidaB < vidaA) {
+        } else if (danioB < danioA) {
           comparison = 1;
         }
         return comparison;
