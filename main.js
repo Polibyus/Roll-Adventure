@@ -6,7 +6,7 @@
 let mob = 0
 let pocion = 5;
 let vidaTotalMob = 0;
-let gold = 0;
+let gold = 1000;
 let spell = 0;
 
 //Constructor de personaje
@@ -62,9 +62,6 @@ ataqueMob (mob, atk) {
         document.getElementById("infoHP").innerHTML = `HP: ${this.vida}`;
         healthChange();
     }
-    ataquePJ.disabled = false;
-    healPJ.disabled = false;
-
 }
 
 // Funcion de curacion para el personaje
@@ -142,8 +139,6 @@ ataquePJ (atkPJ) {
     if (Math.random() >= 0.5) {
         this.vidaMob = this.vidaMob - atkPJ;
         document.getElementById("infoBattle").innerHTML = (`Atacas a ${this.nombre} con ${atkPJ} de ataque <br>`);
-        ataquePJ.disabled = true;
-        healPJ.disabled = true;
         ataqueAnim();
         userPJ.ataqueMob (this.nombre, this.danioMob);
         healthChange();
@@ -170,12 +165,38 @@ ataquePJ (atkPJ) {
     }
 }
 
+lanzarSpell (s) {
+    if (s > 0) {
+    this.vidaMob = this.vidaMob - 20;
+    document.getElementById("infoBattle").innerHTML = (`Atacas a ${this.nombre} con 20 de magia <br>`);
+    spellAnim();
+    healthChange();
+    s = s - 1;
+    document.getElementById("magicPJ").innerHTML = (`Magia (${s})`);
+    $("#magicPJ").prop("disabled", true);}
+    else {
+        document.getElementById("infoBattle").innerHTML = `No tienes magia!`;
+        document.getElementById("magicPJ").innerHTML = (`Magia (${s})`);}
+        $("#magicPJ").prop("disabled", true);
+    if (this.vidaMob <= 0) {
+        this.vidaMob = 0;
+        healthChange();
+        this.mobKill (gold);}
+    else {
+        document.getElementById("infoHPM").innerHTML = `HP: ${this.vidaMob}`;
+        healthChange();
+    }
+    return spell = s;
+}
+
 mobKill (g) {
     document.getElementById("infoBattle").innerHTML = `Has derrotado al poderoso ${this.nombre} <br>`;
     document.getElementById("imgMob").innerHTML = "<img src='img/death.gif' class='img-fluid float-rigth' width='200' height='200'>";
     document.getElementById("infoHPM").innerHTML = `HP: ${this.vidaMob}`;
     document.getElementById("avanzar").disabled = false;
-    document.getElementById("ataquePJ").disabled = true;
+    document.getElementById("avanzar").classList.add('btn-warning');
+    $("#ataquePJ").prop("disabled", true);
+    $("#magicPJ").prop("disabled", true);
     mob = mob + 1;
     g = g + 100;
     updateGold(g);
@@ -211,8 +232,15 @@ function failAnim () {
     $("#imgPJ > img").animate({left: "-5px"}, "fast");
     $("#imgPJ > img").animate({left: "5px"}, "fast");
     $("#imgPJ > img").animate({left: "-5px"}, "fast");
+}
+
+// Falla de ataque
+
+function spellAnim () {
     $("#imgPJ > img").animate({left: "5px"}, "fast");
-    $("#imgPJ > img").animate({left: "-5px"}, "fast");
+    $("#imgPJ > img").animate({left: "-50px"}, "fast");
+    $("#imgPJ > img").animate({left: "5px"}, "fast");
+    $("#imgPJ > img").animate({left: "-50px"}, "fast");
 }
 
 
@@ -340,6 +368,10 @@ document.getElementById("ataquePJ").onclick = function() {hordaMobs[mob].ataqueP
 
 document.getElementById("healPJ").onclick = function() {disableHeal(pocion)};
 
+// Boton de spell
+
+document.getElementById("magicPJ").onclick = function() {hordaMobs[mob].lanzarSpell(spell)};
+
 // Boton de avance
 
 document.getElementById("avanzar").onclick = function() {avanzar (mob)};
@@ -363,6 +395,8 @@ function avanzar (mob) {
     document.getElementById("imgMob").innerHTML = `<img src='img/mob/${hordaMobs[mob].tipo}.gif' class='img-fluid float-rigth'>`;
 
     document.getElementById("avanzar").disabled = true;
+
+    document.getElementById("avanzar").classList.remove('btn-warning');
 
     healthChange ();
 }
@@ -410,12 +444,11 @@ let items = [
     nombre: "Cupón fin del juego",
     descripcion: "Excelente descuento de 30% en cualquier impresion 3D en War of Roll",
     precio: 500,
-    imagen: "img/shop/cupon.jpg",
+    imagen: "img/shop/cupon.gif",
     }];
 
 
 const contenedor = document.getElementById("containerShop");
-// contenedor.innerHTML = "";
 
 items.forEach(item => {
     let card = document.createElement("div");
@@ -425,16 +458,59 @@ items.forEach(item => {
       <h5 class="card-title">${item.nombre}</h5>
       <h6 class="titleShop">${item.precio}</h6>
       <p class="card-text">${item.descripcion}</p>
-      <button class="btn btn-primary">Comprar
+      <button id="${item.id}" class="btn btn-primary">Comprar
     </div>
       `;
   card.innerHTML = html;
   contenedor.appendChild(card);
 });
 
-function comprarPotion (g, p) {
-    if (gold>=50) {
-        
-    }
+// Abrir tienda
 
+$(document).ready(() => {
+    $("#abrirTienda").click(() => {
+        $("#tienda").toggle();
+        document.getElementById("infoBattle").innerHTML = (`Bienvenid@ a Shop of Roll <br>`);
+});
+});
+
+// Funciones de compra
+
+function comprarPocion () {
+    if (gold>=50) {
+        pocion++;
+        gold = gold - 50;
+        document.getElementById("healPJ").innerHTML = (`Pocion (${pocion})`);
+        updateGold(gold);
+        document.getElementById("infoBattle").innerHTML = (`Compras una pocion, muchas gracias! <br>`);
+        $("#healPJ").prop("disabled", false);
+    }
+    else
+    document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
 }
+
+function comprarSpell () {
+    if (gold>=50) {
+        spell++;
+        gold = gold - 50;
+        document.getElementById("magicPJ").innerHTML = (`Magia (${spell})`);
+        updateGold(gold);
+        document.getElementById("infoBattle").innerHTML = (`Compras un pergamino de hechizo, no lo uses en tu casa! <br>`);
+        $("#magicPJ").prop("disabled", false);
+    }
+    else
+    document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
+}
+
+
+$(document).ready(() => {
+    $("#1").click(() => {
+            comprarPocion();
+    });
+        });
+    
+$(document).ready(() => {
+    $("#2").click(() => {
+            comprarSpell();
+    });
+        });
