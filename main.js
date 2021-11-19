@@ -4,7 +4,7 @@
 //Variables a utilizar
 
 let mob = 0
-let pocion = 9;
+let pocion = 5;
 let vidaTotalMob = 0;
 let gold = 0;
 let spell = 0;
@@ -57,7 +57,7 @@ ataqueMob (mob, atk) {
         this.vida = 0;
         document.getElementById("infoHP").innerHTML = `HP: ${this.vida}`;
         healthChange();
-        disableButtons ();
+        disableButtons();
     } else {
         document.getElementById("infoHP").innerHTML = `HP: ${this.vida}`;
         healthChange();
@@ -188,15 +188,13 @@ mobKill (g) {
 // Funcion cuando termina el juego (deshabilitar buttons)
 
 function disableButtons () {
-    ataquePJ.disabled = true;
-    healPJ.disabled = true;
+    $(button).prop('disabled', true);
 }
 
 // Activar buttons
 
 function enableButtons () {
-    ataquePJ.disabled = false;
-    healPJ.disabled = false;
+    $(button).prop('disabled', false);
 }
 
 // Ataque con animacion
