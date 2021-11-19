@@ -170,14 +170,12 @@ lanzarSpell (s) {
     this.vidaMob = this.vidaMob - 20;
     document.getElementById("infoBattle").innerHTML = (`Atacas a ${this.nombre} con 20 de magia <br>`);
     spellAnim();
-    healthChange();
     s = s - 1;
-    document.getElementById("magicPJ").innerHTML = (`Magia (${s})`);
-    $("#magicPJ").prop("disabled", true);}
+    document.getElementById("magicPJ").innerHTML = (`Magia (${s})`);}
     else {
         document.getElementById("infoBattle").innerHTML = `No tienes magia!`;
-        document.getElementById("magicPJ").innerHTML = (`Magia (${s})`);}
-        $("#magicPJ").prop("disabled", true);
+        document.getElementById("magicPJ").innerHTML = (`Magia (${s})`);
+        $("#magicPJ").prop("disabled", true);}
     if (this.vidaMob <= 0) {
         this.vidaMob = 0;
         healthChange();
@@ -221,7 +219,7 @@ function enableButtons () {
 // Ataque con animacion
 
 function ataqueAnim () {
-    $("#imgPJ > img").animate({left: "500px"}, "fast");
+    $("#imgPJ > img").animate({left: "250px"}, "fast");
     $("#imgPJ > img").animate({left: "0px"}, "fast");
 }
 
@@ -237,10 +235,9 @@ function failAnim () {
 // Falla de ataque
 
 function spellAnim () {
-    $("#imgPJ > img").animate({left: "5px"}, "fast");
     $("#imgPJ > img").animate({left: "-50px"}, "fast");
     $("#imgPJ > img").animate({left: "5px"}, "fast");
-    $("#imgPJ > img").animate({left: "-50px"}, "fast");
+
 }
 
 
@@ -381,6 +378,8 @@ document.getElementById("avanzar").onclick = function() {avanzar (mob)};
 function avanzar (mob) {
 
     document.getElementById("ataquePJ").disabled = false;
+
+    document.getElementById("magicPJ").disabled = false;
 
     vidaTotalMob = hordaMobs[mob].vidaMob;
 
