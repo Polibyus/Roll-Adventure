@@ -4,10 +4,11 @@
 //Variables a utilizar
 
 let mob = 0
-let pocion = 2;
+let pocion = 5;
 let vidaTotalMob = 0;
 let gold = 1000;
 let spell = 0;
+const URLJSON = "data/datos.json"
 
 //Constructor de personaje
 
@@ -104,7 +105,42 @@ printPJ () {
         document.getElementById("title").innerHTML = `Okey ${this.nick} tu gran aventura esta por comenzar` ;
 }
 
+//Comprar mejoras en la tienda
+
+comprarHP () {
+    if (gold>=150) {
+        this.vida = this.vida + 100;
+        gold = gold - 150;
+        updateGold(gold);
+        vidaTotalPJ = this.vida;
+        healthChange();
+        document.getElementById("infoHP").innerHTML = `HP: ${this.vida}`;
+        $("#LB").remove();
+        $("#aventura").prepend("<img src='img\shop\pet.gif' alt= 'imagen lobito'>");
+        document.getElementById("infoBattle").innerHTML = (`Te llevas el lobito? Lo vamos a extrañar! <br>`);
+    }
+    else
+    document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
 }
+
+comprarATK () {
+    if (gold>=150) {
+        this.danio = this.danio + 20;
+        gold = gold - 150;
+        updateGold(gold);
+        document.getElementById("infoATK").innerHTML = `ATK: ${this.danio}`;
+        $("#AE").remove();
+        // $("#aventura").prepend("<img src='img\shop\pet.gif' alt= 'imagen lobito'>");
+        document.getElementById("infoBattle").innerHTML = (`Con esto cualquiera gana! <br>`);
+    }
+    else
+    document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
+}
+
+
+}
+
+
 // Fin constructor Personaje
 
 // Creador de enemigos/mob
@@ -414,59 +450,61 @@ function updateGold (gold) {
     document.getElementById("gold").innerHTML = `<img src='img/gold.gif'></img>  ${gold}`;
 }
 
-let items = [
-    {
-    id: 1,
-    nombre: "Poción",
-    descripcion: "La mejor forma de volver al juego",
-    precio: 50,
-    imagen: "img/shop/potion.gif"
-    },
-    {
-    id: 2,
-    nombre: "Spell",
-    descripcion: "Hacer 30 de daño sin perder el turno? Me lo llevo",
-    precio: 50,
-    imagen: "img/shop/spell.gif",
-      },
-    {
+// Intercambiar info con json
+
+const itemVar = {
     id: 3,
     nombre: `Arma especial para ${userPJ.profesion.toLowerCase()}`,
     descripcion: "Vas a necesitar esta mejora de +20 de daño",
     precio: 150,
-    imagen: `img/shop/${userPJ.profesion.toUpperCase()}.gif`
-    },
-    {
-    id: 4,
-    nombre: "Lobito bonito",
-    descripcion: "Mira lo tierno que es y te cubre por 100 de HP",
-    precio: 150,
-    imagen: "img/shop/pet.gif",
-    },
-    {
-    id: 5,
-    nombre: "Cupón fin del juego",
-    descripcion: "Excelente descuento de 30% en cualquier impresion 3D en War of Roll",
-    precio: 500,
-    imagen: "img/shop/cupon.gif",
-    }];
+    imagen: `img/shop/${userPJ.profesion.toUpperCase()}.gif`,
+    index: "AE",
+}
 
+// $.post(URLJSON, itemVar);
 
-const contenedor = document.getElementById("containerShop");
-
-items.forEach(item => {
-    let card = document.createElement("div");
-    let html = `
-    <img src="${item.imagen}" alt="imagen item">
-    <div class="card-body">
-      <h5 class="card-title">${item.nombre}</h5>
-      <h6 class="titleShop">${item.precio}</h6>
-      <p class="card-text">${item.descripcion}</p>
-      <button id="${item.id}" class="btn btn-primary">Comprar
-    </div>
-      `;
-  card.innerHTML = html;
-  contenedor.appendChild(card);
+$.get(URLJSON, function (respuesta, estado) {
+    if(estado === "success"){
+        let items = respuesta;
+        const contenedor = document.getElementById("containerShop");
+        items.forEach(item => {
+            let card = document.createElement("div");
+            let html = `
+            <div id="${item.index}" class="card-body">
+                <img src="${item.imagen}" alt="imagen item">
+                <h5 class="card-title">${item.nombre}</h5>
+                <h6 class="titleShop">${item.precio}</h6>
+                <p class="card-text">${item.descripcion}</p>
+                <button id="${item.id}" class="btn btn-primary">Comprar
+            </div>
+            `;
+        card.innerHTML = html;
+        contenedor.appendChild(card);
+        });
+        $(document).ready(() => {
+            $("#1").click(() => {
+                    comprarPocion();
+            });
+                });
+            
+        $(document).ready(() => {
+            $("#2").click(() => {
+                    comprarSpell();
+            });
+                });
+        
+        $(document).ready(() => {
+            $("#3").click(() => {
+                    userPJ.comprarATK();
+            });
+                });
+        
+        $(document).ready(() => {
+            $("#4").click(() => {
+                    userPJ.comprarHP();
+            });
+                });
+    }
 });
 
 // Abrir tienda
@@ -506,15 +544,10 @@ function comprarSpell () {
     document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
 }
 
-
-$(document).ready(() => {
-    $("#1").click(() => {
-            comprarPocion();
-    });
-        });
-    
-$(document).ready(() => {
-    $("#2").click(() => {
-            comprarSpell();
-    });
-        });
+        /*id: 3,
+        nombre: `Arma especial para ${userPJ.profesion.toLowerCase()}`,
+        descripcion: "Vas a necesitar esta mejora de +20 de daño",
+        precio: 150,
+        imagen: `img/shop/${userPJ.profesion.toUpperCase()}.gif`,
+        index: "AE",
+        }, */

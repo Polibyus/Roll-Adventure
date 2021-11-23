@@ -1,0 +1,40 @@
+[
+    {
+        "id": 1,
+        "nombre": "Poción",
+        "descripcion": "La mejor forma de volver al juego",
+        "precio": 50,
+        "imagen": "img/shop/potion.gif",
+        "index": "P"
+        },
+        {
+        "id": 2,
+        "nombre": "Spell",
+        "descripcion": "Hacer 30 de daño sin perder el turno? Me lo llevo",
+        "precio": 50,
+        "imagen": "img/shop/spell.gif",
+        "index": "S"
+          },
+        {"id": 3,
+        "nombre": "Arma especial",
+        "descripcion": "Vas a necesitar esta mejora de +20 de daño",
+        "precio": 150,
+        "imagen": "img/shop/GUERRERO.gif",
+        "index": "AE"
+        },
+        {
+        "id": 4,
+        "nombre": "Lobito bonito",
+        "descripcion": "Mira lo tierno que es y te cubre por 100 de HP",
+        "precio": 150,
+        "imagen": "img/shop/pet.gif",
+        "index": "LB"
+        },
+        {
+        "id": 5,
+        "nombre": "Cupón fin del juego",
+        "descripcion": "Excelente descuento de 30% en cualquier impresion 3D en War of Roll",
+        "precio": 500,
+        "imagen": "img/shop/cupon.gif",
+        "index": "C"
+        }]
