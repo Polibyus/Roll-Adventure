@@ -4,7 +4,7 @@
 //Variables a utilizar
 
 let mob = 0
-let pocion = 5;
+let pocion = 2;
 let vidaTotalMob = 0;
 let gold = 1000;
 let spell = 0;
@@ -171,11 +171,8 @@ lanzarSpell (s) {
     document.getElementById("infoBattle").innerHTML = (`Atacas a ${this.nombre} con 20 de magia <br>`);
     spellAnim();
     s = s - 1;
+    if (s == 0){$("#magicPJ").prop("disabled", true);}
     document.getElementById("magicPJ").innerHTML = (`Magia (${s})`);}
-    else {
-        document.getElementById("infoBattle").innerHTML = `No tienes magia!`;
-        document.getElementById("magicPJ").innerHTML = (`Magia (${s})`);
-        $("#magicPJ").prop("disabled", true);}
     if (this.vidaMob <= 0) {
         this.vidaMob = 0;
         healthChange();
@@ -193,8 +190,7 @@ mobKill (g) {
     document.getElementById("infoHPM").innerHTML = `HP: ${this.vidaMob}`;
     document.getElementById("avanzar").disabled = false;
     document.getElementById("avanzar").classList.add('btn-warning');
-    $("#ataquePJ").prop("disabled", true);
-    $("#magicPJ").prop("disabled", true);
+    disableButtons();
     mob = mob + 1;
     g = g + 100;
     updateGold(g);
@@ -219,7 +215,13 @@ function disableButtons () {
 // Activar buttons
 
 function enableButtons () {
-    $(button).prop('disabled', false);
+    $("#ataquePJ").prop("disabled", false);
+    if (spell > 0) {$("#magicPJ").prop("disabled", false);}
+    if (pocion > 0) {$("#healPJ").prop("disabled", false);}
+    $("#1").prop("disabled", false);
+    $("#2").prop("disabled", false);
+    $("#3").prop("disabled", false);
+    $("#4").prop("disabled", false);
 }
 
 // Ataque con animacion
@@ -252,14 +254,11 @@ function spellAnim () {
 function disableHeal (p) {
     if (p > 0 && userPJ.vida <= 70) {
         p = p - 1;
+        if (p == 0){$("#healPJ").prop("disabled", true);}
+        document.getElementById("healPJ").innerHTML = (`Pocion (${p})`);
         userPJ.healPJ(p);}
     else if (userPJ.vida > 70) {
         document.getElementById("infoBattle").innerHTML = `Tienes mucha vida, prueba arriesgandote! <br>`;}
-    else {
-        document.getElementById("infoBattle").innerHTML = `Te quedaste sin pociones`;
-        document.getElementById("healPJ").innerHTML = (`Pocion (${p})`);
-        document.getElementById("healPJ").disabled = true;
-    }
     return pocion = p;
 }
 
@@ -360,6 +359,8 @@ $(document).ready(function(){
     $("#start").hide();
 
     $("#avanzar").prop("disabled", true);
+
+    $("#magicPJ").prop("disabled", true);
 });
 
 });
@@ -383,9 +384,7 @@ document.getElementById("avanzar").onclick = function() {avanzar (mob)};
 
 function avanzar (mob) {
 
-    document.getElementById("ataquePJ").disabled = false;
-
-    document.getElementById("magicPJ").disabled = false;
+    enableButtons();
 
     vidaTotalMob = hordaMobs[mob].vidaMob;
 
