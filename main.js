@@ -221,6 +221,10 @@ lanzarSpell (s) {
 }
 
 mobKill (g) {
+    if (this.tipo == "jefazo") {
+        winGame();
+    }
+    else {
     document.getElementById("infoBattle").innerHTML = `Has derrotado al poderoso ${this.nombre} <br>`;
     document.getElementById("imgMob").innerHTML = "<img src='img/death.gif' class='img-fluid float-rigth' width='200' height='200'>";
     document.getElementById("infoHPM").innerHTML = `HP: ${this.vidaMob}`;
@@ -230,7 +234,7 @@ mobKill (g) {
     mob = mob + 1;
     g = g + 100;
     updateGold(g);
-    return gold = g;
+    return gold = g;}
 }
 
 }
@@ -284,6 +288,59 @@ function spellAnim () {
 
 }
 
+// Funcion de ganar el game ¡Muy bieeenn!
+
+function winGame () {
+    $("#game").hide();
+    $("#win").modal("show");
+}
+
+// Funciones de comprar
+// Pocion
+function comprarPocion () {
+    if (gold>=50) {
+        pocion++;
+        gold = gold - 50;
+        document.getElementById("healPJ").innerHTML = (`Pocion (${pocion})`);
+        updateGold(gold);
+        document.getElementById("infoBattle").innerHTML = (`Compras una pocion, muchas gracias! <br>`);
+        $("#healPJ").prop("disabled", false);
+    }
+    else
+    document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
+}
+// Spell
+function comprarSpell () {
+    if (gold>=50) {
+        spell++;
+        gold = gold - 50;
+        document.getElementById("magicPJ").innerHTML = (`Magia (${spell})`);
+        updateGold(gold);
+        document.getElementById("infoBattle").innerHTML = (`Compras un pergamino de hechizo, no lo uses en tu casa! <br>`);
+        $("#magicPJ").prop("disabled", false);
+    }
+    else
+    document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
+}
+// Cupon
+function comprarCupon () {
+    if (gold>=500) {
+        winGame();
+    }
+    else
+    document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
+}
+
+
+
+// Redireccionar
+
+$(document).ready(() => {
+    $("#redirect").click(() => {
+        const url = "https://polibyus.github.io/War-of-Roll/"
+        window.location.replace(url);
+    });
+});
 
 // Pociones terminadas
 
@@ -397,6 +454,8 @@ $(document).ready(function(){
     $("#avanzar").prop("disabled", true);
 
     $("#magicPJ").prop("disabled", true);
+
+    $('#win').modal({ show: false});
 });
 
 });
@@ -504,6 +563,11 @@ $.get(URLJSON, function (respuesta, estado) {
                     userPJ.comprarHP();
             });
                 });
+        $(document).ready(() => {
+            $("#5").click(() => {
+                    comprarCupon();
+            });
+                });
     }
 });
 
@@ -516,33 +580,6 @@ $(document).ready(() => {
 });
 });
 
-// Funciones de compra
-
-function comprarPocion () {
-    if (gold>=50) {
-        pocion++;
-        gold = gold - 50;
-        document.getElementById("healPJ").innerHTML = (`Pocion (${pocion})`);
-        updateGold(gold);
-        document.getElementById("infoBattle").innerHTML = (`Compras una pocion, muchas gracias! <br>`);
-        $("#healPJ").prop("disabled", false);
-    }
-    else
-    document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
-}
-
-function comprarSpell () {
-    if (gold>=50) {
-        spell++;
-        gold = gold - 50;
-        document.getElementById("magicPJ").innerHTML = (`Magia (${spell})`);
-        updateGold(gold);
-        document.getElementById("infoBattle").innerHTML = (`Compras un pergamino de hechizo, no lo uses en tu casa! <br>`);
-        $("#magicPJ").prop("disabled", false);
-    }
-    else
-    document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
-}
 
         /*id: 3,
         nombre: `Arma especial para ${userPJ.profesion.toLowerCase()}`,
