@@ -207,7 +207,13 @@ mobKill (g) {
 // Funcion cuando termina el juego (deshabilitar buttons)
 
 function disableButtons () {
-    $(button).prop('disabled', true);
+    $("#ataquePJ").prop("disabled", true);
+    $("#healPJ").prop("disabled", true);
+    $("#magicPJ").prop("disabled", true);
+    $("#1").prop("disabled", true);
+    $("#2").prop("disabled", true);
+    $("#3").prop("disabled", true);
+    $("#4").prop("disabled", true);
 }
 
 // Activar buttons
