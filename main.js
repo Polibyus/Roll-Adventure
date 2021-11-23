@@ -116,7 +116,7 @@ comprarHP () {
         healthChange();
         document.getElementById("infoHP").innerHTML = `HP: ${this.vida}`;
         $("#LB").remove();
-        $("#aventura").prepend("<img src='img\shop\pet.gif' alt= 'imagen lobito'>");
+        $("#imgPJ").prepend("<img src='img/shop/pet.gif' alt= 'imagen lobito'>");
         document.getElementById("infoBattle").innerHTML = (`Te llevas el lobito? Lo vamos a extrañar! <br>`);
     }
     else
