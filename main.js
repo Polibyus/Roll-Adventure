@@ -509,19 +509,6 @@ function updateGold (gold) {
     document.getElementById("gold").innerHTML = `<img src='img/gold.gif'></img>  ${gold}`;
 }
 
-// Intercambiar info con json
-
-const itemVar = {
-    id: 3,
-    nombre: `Arma especial para ${userPJ.profesion.toLowerCase()}`,
-    descripcion: "Vas a necesitar esta mejora de +20 de daño",
-    precio: 150,
-    imagen: `img/shop/${userPJ.profesion.toUpperCase()}.gif`,
-    index: "AE",
-}
-
-// $.post(URLJSON, itemVar);
-
 $.get(URLJSON, function (respuesta, estado) {
     if(estado === "success"){
         let items = respuesta;
@@ -540,6 +527,7 @@ $.get(URLJSON, function (respuesta, estado) {
         card.innerHTML = html;
         contenedor.appendChild(card);
         });
+        
         $(document).ready(() => {
             $("#1").click(() => {
                     comprarPocion();
@@ -563,6 +551,7 @@ $.get(URLJSON, function (respuesta, estado) {
                     userPJ.comprarHP();
             });
                 });
+
         $(document).ready(() => {
             $("#5").click(() => {
                     comprarCupon();
@@ -579,12 +568,3 @@ $(document).ready(() => {
         document.getElementById("infoBattle").innerHTML = (`Bienvenid@ a Shop of Roll <br>`);
 });
 });
-
-
-        /*id: 3,
-        nombre: `Arma especial para ${userPJ.profesion.toLowerCase()}`,
-        descripcion: "Vas a necesitar esta mejora de +20 de daño",
-        precio: 150,
-        imagen: `img/shop/${userPJ.profesion.toUpperCase()}.gif`,
-        index: "AE",
-        }, */
