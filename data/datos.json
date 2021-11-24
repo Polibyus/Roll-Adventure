@@ -19,7 +19,7 @@
         "nombre": "Arma especial",
         "descripcion": "Vas a necesitar esta mejora de +20 de daño",
         "precio": 150,
-        "imagen": "img/shop/GUERRERO.gif",
+        "imagen": "img/shop/arma.gif",
         "index": "AE"
         },
         {

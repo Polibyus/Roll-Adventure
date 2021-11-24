@@ -54,7 +54,7 @@ ataqueMob (mob, atk) {
     // muerte del personaje
     if (this.vida <= 0) {
         document.getElementById("infoBattle").innerHTML = `Moriste, mejor suerte la proxima vida`;
-        document.getElementById("imgPJ").innerHTML = "<img src='img/death.gif' class='img-fluid float-left' width='250' height='250'>";
+        document.getElementById("imgPJ").innerHTML = "<img src='img/user/death.gif' class='img-fluid float-left' width='250' height='250'>";
         this.vida = 0;
         document.getElementById("infoHP").innerHTML = `HP: ${this.vida}`;
         healthChange();
@@ -70,6 +70,7 @@ ataqueMob (mob, atk) {
 healPJ (p) {
     document.getElementById("infoBattle").innerHTML = (`Usas una pocion, recuperas 20 de HP <br>`);
     this.vida = this.vida + 20;
+    healEffect();
     document.getElementById("healPJ").innerHTML = (`Pocion (${p})`);
     document.getElementById("infoHP").innerHTML = `HP: ${this.vida}`;
     vidaPJBar.style.width = `${(userPJ.vida / vidaTotalPJ)*100}%`;
@@ -78,22 +79,22 @@ healPJ (p) {
 printPJ () {
     if (this.profesion.toUpperCase() === "GUERRERO") {
         document.getElementById("infoPJ").innerHTML = "Agarra tu hacha y estas pociones, te seran utiles";
-        document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleG.gif'  class='img-fluid float-left'>";
+        document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleG.gif' id='user' class='img-fluid float-left'>";
         }
         else
             if  (this.profesion.toUpperCase() === "MAGO") {
                 document.getElementById("infoPJ").innerHTML = "No te olvides tu libro y 5 pociones de mana, esos monstruos no se prenden fuego solos.";
-                document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleM.gif'  class='img-fluid float-left' width='250' height='250'>";
+                document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleM.gif' id='user' class='img-fluid float-left' width='250' height='250'>";
         }
         else
             if (this.profesion.toUpperCase() === "CAZADOR") {
                 document.getElementById("infoPJ").innerHTML = "Tantas flechas como puedas en el carcaj y este arco recien puesto a punto!";
-                document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleC.gif'  class='img-fluid float-left' width='250' height='250'>";
+                document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleC.gif' id='user' class='img-fluid float-left' width='250' height='250'>";
             }
         else {
             this.profesion = "Novato"
             document.getElementById("infoPJ").innerHTML = "Un novato por aqui?";
-            document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleN.gif'  class='img-fluid float-left' width='250' height='250'>";
+            document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleN.gif' id='user' class='img-fluid float-left' width='250' height='250'>";
         }
         
         document.getElementById("nickPJ").innerHTML = `${this.nick}`;
@@ -130,7 +131,6 @@ comprarATK () {
         updateGold(gold);
         document.getElementById("infoATK").innerHTML = `ATK: ${this.danio}`;
         $("#AE").remove();
-        // $("#aventura").prepend("<img src='img\shop\pet.gif' alt= 'imagen lobito'>");
         document.getElementById("infoBattle").innerHTML = (`Con esto cualquiera gana! <br>`);
     }
     else
@@ -226,7 +226,7 @@ mobKill (g) {
     }
     else {
     document.getElementById("infoBattle").innerHTML = `Has derrotado al poderoso ${this.nombre} <br>`;
-    document.getElementById("imgMob").innerHTML = "<img src='img/death.gif' class='img-fluid float-rigth' width='200' height='200'>";
+    document.getElementById("imgMob").innerHTML = "<img src='img/mob/death.gif' class='img-fluid float-rigth' width='200' height='200'>";
     document.getElementById("infoHPM").innerHTML = `HP: ${this.vidaMob}`;
     document.getElementById("avanzar").disabled = false;
     document.getElementById("avanzar").classList.add('btn-warning');
@@ -280,12 +280,18 @@ function failAnim () {
     $("#imgPJ > img").animate({left: "-5px"}, "fast");
 }
 
-// Falla de ataque
+// Efecto magia
 
 function spellAnim () {
     $("#imgPJ > img").animate({left: "-50px"}, "fast");
-    $("#imgPJ > img").animate({left: "5px"}, "fast");
+    $("#imgPJ > img").animate({left: "0px"}, "fast");
+    $("#spell").show().delay(2000).hide();
+}
 
+// Efecto heal
+
+function healEffect () {
+    $("#potion").show().delay(2000).hide();
 }
 
 // Funcion de ganar el game ¡Muy bieeenn!
@@ -447,7 +453,11 @@ $(document).ready(function(){
 
     $("#infoBattle").html(`Caminas por un bosque cuando un ${hordaMobs[mob].tipo} aparece <br>`);
 
-    $("#imgMob").html(`<img src='img/mob/${hordaMobs[mob].tipo}.gif' class='img-fluid float-rigth'>`);
+    $("#imgMob").html(`<img src='img/mob/${hordaMobs[mob].tipo}.gif' id='mob' class='img-fluid float-rigth'>`);
+
+    document.getElementById("imgMob").innerHTML += "<img src='img/user/spell.gif' id='spell' width='200' height='200'>";
+
+    document.getElementById("imgPJ").innerHTML += "<img src='img/user/heal.gif' id='potion' width='200' height='200'>";
 
     $("#start").hide();
 
@@ -491,11 +501,15 @@ function avanzar (mob) {
 
     document.getElementById("infoATKM").innerHTML = `ATK: ${hordaMobs[mob].danioMob}`;
 
-    document.getElementById("imgMob").innerHTML = `<img src='img/mob/${hordaMobs[mob].tipo}.gif' class='img-fluid float-rigth'>`;
+    document.getElementById("imgMob").innerHTML = `<img src='img/mob/${hordaMobs[mob].tipo}.gif' id='mob' class='img-fluid float-rigth'>`;
 
     document.getElementById("avanzar").disabled = true;
 
     document.getElementById("avanzar").classList.remove('btn-warning');
+
+    document.getElementById("imgMob").innerHTML += "<img src='img/user/spell.gif' id='spell' width='200' height='200'>";
+
+    document.getElementById("imgPJ").innerHTML += "<img src='img/user/heal.gif' id='potion' width='200' height='200'>";
 
     healthChange ();
 }
