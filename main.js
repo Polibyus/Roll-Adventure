@@ -293,6 +293,8 @@ function spellAnim () {
 function winGame () {
     $("#game").hide();
     $("#win").modal("show");
+    document.getElementById("title").innerHTML = "GANASTE!!!";
+    document.getElementById("infoPJ").innerHTML = "Disfruta tu beneficio y estate atent@ a nuevas aventuras";
 }
 
 // Funciones de comprar
@@ -330,8 +332,6 @@ function comprarCupon () {
     else
     document.getElementById("infoBattle").innerHTML = (`No tienes suficiente oro <br>`);
 }
-
-
 
 // Redireccionar
 
