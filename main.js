@@ -285,13 +285,13 @@ function failAnim () {
 function spellAnim () {
     $("#imgPJ > img").animate({left: "-50px"}, "fast");
     $("#imgPJ > img").animate({left: "0px"}, "fast");
-    $("#spell").show().delay(2000).hide();
+    $("#spell").show().delay(1300).hide(0);
 }
 
 // Efecto heal
 
 function healEffect () {
-    $("#potion").show().delay(2000).hide();
+    $("#potion").show().delay(1500).hide(0);
 }
 
 // Funcion de ganar el game ¡Muy bieeenn!
