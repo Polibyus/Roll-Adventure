@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url(img/background.jpg);
+    background-image: url(/img/background.jpg);
     font-family: 'Press Start 2P', cursive;
 }
 
@@ -155,7 +155,7 @@ img {
     left: 0;
 }
 
-#potion, #spell, #slash {
+#potion, #spell, #melee, #arrow, #magiceff {
     display: none;
     position: absolute;
     top: 0;
