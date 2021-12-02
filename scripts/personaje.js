@@ -84,17 +84,17 @@ healPJ (p) {
 printPJ () {
     if (this.profesion.toUpperCase() === "GUERRERO") {
         document.getElementById("infoPJ").innerHTML = "Agarra tu hacha y estas pociones, te seran utiles";
-        document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleG.gif' id='user' class='img-fluid float-left'>";
+        document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleG.gif' id='user' class='img-fluid float-left '>";
         }
         else
             if  (this.profesion.toUpperCase() === "MAGO") {
                 document.getElementById("infoPJ").innerHTML = "No te olvides tu libro y 5 pociones de mana, esos monstruos no se prenden fuego solos.";
-                document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleM.gif' id='user' class='img-fluid float-left' width='250' height='250'>";
+                document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleM.gif' id='user' class='img-fluid float-left ' width='250' height='250'>";
         }
         else
             if (this.profesion.toUpperCase() === "CAZADOR") {
                 document.getElementById("infoPJ").innerHTML = "Tantas flechas como puedas en el carcaj y este arco recien puesto a punto!";
-                document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleC.gif' id='user' class='img-fluid float-left' width='250' height='250'>";
+                document.getElementById("imgPJ").innerHTML = "<img src='img/user/idleC.gif' id='user' class='img-fluid float-left ' width='250' height='250'>";
             }
         
         document.getElementById("nickPJ").innerHTML = `${this.nick}`;
@@ -117,7 +117,7 @@ comprarHP () {
         healthChange();
         document.getElementById("infoHP").innerHTML = `HP: ${this.vida}`;
         $("#LB").remove();
-        $("#imgPJ").prepend("<img src='img/shop/pet.gif' alt= 'imagen lobito'>");
+        $("#imgPJ").append("<img src='img/shop/pet.gif' alt= 'imagen lobito'>");
         document.getElementById("infoBattle").innerHTML = (`Te llevas el lobito? Lo vamos a extrañar! <br>`);
     }
     else

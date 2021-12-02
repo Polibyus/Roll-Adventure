@@ -51,11 +51,11 @@ $(document).ready(function(){
     $("#imgMob").html(`<img src='img/mob/${hordaMobs[mob].tipo}.gif' id='mob' class='img-fluid float-rigth'>`);
     
     // Efectos de hit
-    document.getElementById("imgMob").innerHTML += "<img src='img/user/spell.gif' id='spell' width='200' height='200'>";
-    document.getElementById("imgMob").innerHTML += "<img src='img/user/meleeffect.gif' id='melee' width='200' height='200'>";
-    document.getElementById("imgMob").innerHTML += "<img src='img/user/arroweffect.gif' id='arrow' width='200' height='200'>";
-    document.getElementById("imgMob").innerHTML += "<img src='img/user/magiceffect.gif' id='magiceff' width='200' height='200'>";
-    document.getElementById("imgPJ").innerHTML += "<img src='img/user/heal.gif' id='potion' width='200' height='200'>";
+    document.getElementById("imgMob").innerHTML += "<img src='img/user/spell.gif' class='img-fluid float-rigth' id='spell'>";
+    document.getElementById("imgMob").innerHTML += "<img src='img/user/meleeffect.gif' class='img-fluid float-rigth' id='melee'>";
+    document.getElementById("imgMob").innerHTML += "<img src='img/user/arroweffect.gif' class='img-fluid float-rigth' id='arrow'>";
+    document.getElementById("imgMob").innerHTML += "<img src='img/user/magiceffect.gif' class='img-fluid float-rigth' id='magiceff'>";
+    document.getElementById("imgPJ").innerHTML += "<img src='img/user/heal.gif' class='img-fluid float-rigth' id='potion'>";
 
     $("#start").hide();
 
@@ -90,9 +90,13 @@ function avanzar (mob) {
 
     document.getElementById("avanzar").classList.remove('btn-warning');
 
-    document.getElementById("imgMob").innerHTML += "<img src='img/user/spell.gif' id='spell' width='200' height='200'>";
-
-    document.getElementById("imgPJ").innerHTML += "<img src='img/user/heal.gif' id='potion' width='200' height='200'>";
+    // Efectos de hit
+    document.getElementById("imgMob").innerHTML += "<img src='img/user/spell.gif' class='img-fluid float-rigth' id='spell'>";
+    document.getElementById("imgMob").innerHTML += "<img src='img/user/meleeffect.gif' class='img-fluid float-rigth' id='melee'>";
+    document.getElementById("imgMob").innerHTML += "<img src='img/user/arroweffect.gif' class='img-fluid float-rigth' id='arrow'>";
+    document.getElementById("imgMob").innerHTML += "<img src='img/user/magiceffect.gif' class='img-fluid float-rigth' id='magiceff'>";
+    document.getElementById("imgPJ").innerHTML += "<img src='img/user/heal.gif' class='img-fluid float-rigth' id='potion'>";
+    
 
     healthChange ();
 }
