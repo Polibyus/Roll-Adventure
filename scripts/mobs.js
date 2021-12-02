@@ -27,7 +27,7 @@ danioMob () {
 }
 ataquePJ (atkPJ) {
     //posibilidad de fallo
-    if (Math.random() >= 0.5) {
+    if (Math.random() >= 0.3) {
         this.vidaMob = this.vidaMob - atkPJ;
         document.getElementById("infoBattle").innerHTML = (`Atacas a ${this.nombre} con ${atkPJ} de ataque <br>`);
         userPJ.ataqueAnim();
