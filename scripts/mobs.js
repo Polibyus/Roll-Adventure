@@ -99,7 +99,7 @@ mobKill (g) {
 
 const mob1 = new Mob ({ nombre: "Rimuru", tipo: "slime" });
 
-const mob2 = new Mob ({ nombre: "Groot", tipo: "treant" });
+const mob2 = new Mob ({ nombre: "Groot", tipo: "Treant" });
 
 const mob3 = new Mob ({ nombre: "Tortita", tipo: "fantasma" });
 
